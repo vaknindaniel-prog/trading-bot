@@ -1,3 +1,4 @@
+import urllib.request
 import asyncio, logging, time, json
 import aiohttp
 
@@ -99,7 +100,17 @@ async def handle_cb(session, cb):
 
 async def main():
     log.info("Bot starting...")
+    try:
+        my_ip = urllib.request.urlopen("https://api.ipify.org").read().decode()
+        log.info("Server IP: " + my_ip)
+    except:
+        pass
     async with aiohttp.ClientSession() as session:
+        try:
+            my_ip = urllib.request.urlopen("https://api.ipify.org").read().decode()
+            await send(session, "Server IP: " + my_ip)
+        except:
+            pass
         await send(session, "<b>Bot is LIVE!</b>\nScanning every 60 seconds...")
         last_id = 0
         last_scan = 0
