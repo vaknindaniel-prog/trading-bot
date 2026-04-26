@@ -107,7 +107,7 @@ async def find_pump(session):
         prev_vol = volume_history.get(s, 0)
         if prev_vol > 0:
             vol_spike = vol_24h / prev_vol
-            if vol_spike >= 2.0 and ch_24h < 5:
+            if vol_spike >= 1.5 and ch_24h < 5:
                 candidates.append({
                     "symbol": s,
                     "price": px,
