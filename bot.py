@@ -3,7 +3,8 @@ import asyncio, logging, time, json
 import aiohttp
 
 BINANCE_API_KEY = "qZ3dMupVbwtrX40OrLJgWpTMpTQGFq1XIpKAs5iMdZ7MBKok3wsv8vxE4HCVkB9G"
-BINANCE_SECRET_KEY = "OH7WLiyXvJNi1dGQubeqkEH4b5emgCdnJ9gUpUUCR6WOvJt3SuEQvELYwpbldYjX"TELEGRAM_TOKEN = "8485657376:AAHtabaend_BO2bdqxLd7fYTdWg7PyUUTlU"
+BINANCE_SECRET_KEY = "OH7WLiyXvJNi1dGQubeqkEH4b5emgCdnJ9gUpUUCR6WOvJt3SuEQvELYwpbldYjX"
+TELEGRAM_TOKEN = "8485657376:AAHtabaend_BO2bdqxLd7fYTdWg7PyUUTlU"
 TELEGRAM_CHAT_ID = "6581268682"
 TRADE_AMOUNT = 50
 TARGET_PCT = 3.0
@@ -88,7 +89,7 @@ async def handle_cb(session, cb):
             await answer(session, qid, "Expired")
             return
         await answer(session, qid, "Approved!")
-        msg = "APPROVED: " + s + "\nTarget: $" + str(trade["target"]) + "\nStop: $" + str(trade["stop"]) + "\n\nDEMO MODE - add Secret Key for real trading"
+        msg = "APPROVED: " + s + "\nTarget: $" + str(trade["target"]) + "\nStop: $" + str(trade["stop"])
         await send(session, msg)
         del pending[s]
     elif data.startswith("reject_"):
@@ -99,11 +100,6 @@ async def handle_cb(session, cb):
 
 async def main():
     log.info("Bot starting...")
-    try:
-        my_ip = urllib.request.urlopen("https://api.ipify.org").read().decode()
-        log.info("Server IP: " + my_ip)
-    except:
-        pass
     async with aiohttp.ClientSession() as session:
         try:
             my_ip = urllib.request.urlopen("https://api.ipify.org").read().decode()
