@@ -61,8 +61,12 @@ async def find_pump(session):
     async with session.get(BINANCE + "/api/v3/ticker/24hr") as r:
         tickers = await r.json()
 
+    if not isinstance(tickers, list):
+        return []
     candidates = []
     for t in tickers:
+        if not isinstance(t, dict):
+            continue
         s = t.get("symbol", "")
         if not s.endswith("USDT"):
             continue
